@@ -19,5 +19,6 @@ $config['database'] = [
  */
 $config['wechat'] = [
     'app_id' => 'wx7766d24bb3e798ff',
-    'app_secret' => 'e58e31dd540749858bfed58cd941843f'
+    'app_secret' => 'e58e31dd540749858bfed58cd941843f',
+    'token' => 'test_token'
 ];

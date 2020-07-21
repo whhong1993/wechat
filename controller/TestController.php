@@ -17,7 +17,8 @@ class TestController extends ArkWebController
     {
         $wechat_config = [
             'app_id' => Helper::config(['wechat', 'app_id']),
-            'app_secret' => Helper::config(['wechat', 'app_secret'])
+            'app_secret' => Helper::config(['wechat', 'app_secret']),
+            'token' => Helper::config(['wechat', 'token'])
         ];
 
         $app = Factory::officialAccount($wechat_config);
