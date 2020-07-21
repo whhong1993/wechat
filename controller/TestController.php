@@ -26,4 +26,9 @@ class TestController extends ArkWebController
 
         return $app->server->serve();
     }
+
+    public function test()
+    {
+        echo '111';
+    }
 }
