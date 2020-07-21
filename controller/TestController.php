@@ -7,9 +7,21 @@
  */
 namespace wechat\controller;
 
+use EasyWeChat\Factory;
 use sinri\ark\web\implement\ArkWebController;
+use wechat\toolkit\Helper;
 
 class TestController extends ArkWebController
 {
-    
+    public function server()
+    {
+        $wechat_config = [
+            'app_id' => Helper::config(['wechat', 'app_id']),
+            'app_secret' => Helper::config(['wechat', 'app_secret'])
+        ];
+
+        $app = Factory::officialAccount($wechat_config);
+        $response = $app->server->serve();
+        $response->send();
+    }
 }
