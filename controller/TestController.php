@@ -24,7 +24,7 @@ class TestController extends ArkWebController
 
         $app = Factory::officialAccount($wechat_config);
 
-        return $app->server->serve();
+        $app->server->serve()->send();
     }
 
     public function test()
