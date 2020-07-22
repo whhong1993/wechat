@@ -13,7 +13,7 @@ use wechat\middleware\CoreMiddleware;
 require_once __DIR__ . '/vendor/autoload.php';
 
 
-$logger = new ArkLogger(__DIR__ . '/../log', 'web');
+$logger = new ArkLogger(__DIR__ . '/log', 'web');
 $logger->setIgnoreLevel(LogLevel::DEBUG);
 
 $web_service = Ark()->webService();
