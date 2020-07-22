@@ -13,22 +13,26 @@ use wechat\toolkit\Helper;
 
 class TestController extends ArkWebController
 {
-    public function server()
+    protected $app;
+
+    public function __construct()
     {
+        parent::__construct();
+
         $wechat_config = [
             'app_id' => Helper::config(['wechat', 'app_id']),
             'app_secret' => Helper::config(['wechat', 'app_secret']),
             'token' => Helper::config(['wechat', 'token']),
             'response_type' => 'array',
         ];
-
-        $app = Factory::officialAccount($wechat_config);
-
-        $app->server->serve()->send();
+        $this->app = Factory::officialAccount($wechat_config);
     }
 
-    public function test()
+
+    public function server()
     {
-        echo '111';
+        $this->app->server->serve()->send();
     }
+
+
 }
