@@ -8,6 +8,7 @@
 namespace wechat\controller;
 
 use EasyWeChat\Factory;
+use Exception;
 use sinri\ark\core\ArkLogger;
 use sinri\ark\web\implement\ArkWebController;
 use wechat\toolkit\Helper;
@@ -37,45 +38,40 @@ class TestController extends ArkWebController
             $this->app->server->serve()->send();
         } else {
             $message = $this->app->server->getMessage();
+            $this->handleMessage($message);
             $logger->log(LOG_INFO, "message:" , $message);
         }
     }
 
-    public function handleMessage()
+    public function handleMessage($message)
     {
-        $message = $this->app->server->getMessage();
-        var_dump($message);die();
-//        $this->app->server->getMessage(function ($message) {
-//            switch ($message->MsgType) {
-//                case 'event':
-//                    return '收到事件消息';
-//                    break;
-//                case 'text':
-//                    return '收到文字消息';
-//                    break;
-//                case 'image':
-//                    return '收到图片消息';
-//                    break;
-//                case 'voice':
-//                    return '收到语音消息';
-//                    break;
-//                case 'video':
-//                    return '收到视频消息';
-//                    break;
-//                case 'location':
-//                    return '收到坐标消息';
-//                    break;
-//                case 'link':
-//                    return '收到链接消息';
-//                    break;
-//                // ... 其它消息
-//                default:
-//                    return '收到其它消息';
-//                    break;
-//            }
-//
-//        });
+        switch ($message->MsgType) {
+            case 'event':
+                return '收到事件消息';
+                break;
+            case 'text':
+                return '收到文字消息';
+                break;
+            case 'image':
+                return '收到图片消息';
+                break;
+            case 'voice':
+                return '收到语音消息';
+                break;
+            case 'video':
+                return '收到视频消息';
+                break;
+            case 'location':
+                return '收到坐标消息';
+                break;
+            case 'link':
+                return '收到链接消息';
+                break;
+            // ... 其它消息
+            default:
+                return '收到其它消息';
+                break;
+        }
+
     }
-
-
 }
