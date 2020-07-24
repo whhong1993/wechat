@@ -46,41 +46,57 @@ class WechatServerController extends ArkWebController
                 $message = $this->app->server->getMessage();
                 $this->logger->info("接收到消息", $message);
 
-                $this->app->server->push(function ($message) {
-                    switch ($message['MsgType']) {
-                        case 'event':
-                            return '收到事件消息';
-                            break;
-                        case 'text':
-                            return '收到文字消息';
-                            break;
-                        case 'image':
-                            return '收到图片消息';
-                            break;
-                        case 'voice':
-                            return '收到语音消息';
-                            break;
-                        case 'video':
-                            return '收到视频消息';
-                            break;
-                        case 'location':
-                            return '收到坐标消息';
-                            break;
-                        case 'link':
-                            return '收到链接消息';
-                            break;
-                        case 'file':
-                            return '收到文件消息';
-                        // ... 其它消息
-                        default:
-                            return '收到其它消息';
-                            break;
-                    }
-                });
-                $this->app->server->serve()->send();
+                $this->handleMessage();
             }
         } catch (Exception $exception) {
             $this->logger->error($exception->getMessage());
+        }
+    }
+
+    private function handleMessage()
+    {
+        $this->app->server->push(function ($message) {
+            switch ($message['MsgType']) {
+                case 'event':
+                    return '收到事件消息';
+                    break;
+                case 'text':
+                    return '收到文字消息';
+                    break;
+                case 'image':
+                    return '收到图片消息';
+                    break;
+                case 'voice':
+                    return '收到语音消息';
+                    break;
+                case 'video':
+                    return '收到视频消息';
+                    break;
+                case 'location':
+                    return '收到坐标消息';
+                    break;
+                case 'link':
+                    return '收到链接消息';
+                    break;
+                case 'file':
+                    return '收到文件消息';
+                // ... 其它消息
+                default:
+                    return '收到其它消息';
+                    break;
+            }
+        });
+        $this->app->server->serve()->send();
+    }
+
+
+    public function getFollowerList()
+    {
+        try {
+            $followers = $this->app->user->list();
+            $this->_sayOK($followers);
+        } catch (Exception $exception) {
+            $this->_sayFail($exception->getMessage());
         }
     }
 
