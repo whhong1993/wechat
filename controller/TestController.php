@@ -8,7 +8,6 @@
 namespace wechat\controller;
 
 use EasyWeChat\Factory;
-use sinri\ark\core\ArkLogger;
 use sinri\ark\web\implement\ArkWebController;
 use wechat\toolkit\Helper;
 
@@ -35,7 +34,8 @@ class TestController extends ArkWebController
 
     public function server()
     {
-        $logger = new ArkLogger(__DIR__ . '/../log', __CLASS__);
+        $logger = Helper::logger(__CLASS__);
+
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $this->app->server->serve()->send();
         } else {

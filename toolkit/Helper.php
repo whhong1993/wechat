@@ -8,7 +8,9 @@
 namespace wechat\toolkit;
 
 use Exception;
+use Psr\Log\LogLevel;
 use sinri\ark\core\ArkHelper;
+use sinri\ark\core\ArkLogger;
 use sinri\ark\database\pdo\ArkPDO;
 use sinri\ark\database\pdo\ArkPDOConfig;
 
@@ -80,4 +82,12 @@ class Helper
         return self::$databasePool[$name];
     }
 
+    public static function logger($prefix)
+    {
+        $dir = Helper::config(['log', 'base']);
+        $logger = new ArkLogger($dir, $prefix, 'Y-m-d', null, true);
+        $level = Helper::config(['log', 'log_level'], LogLevel::INFO);
+        $logger->setIgnoreLevel($level);
+        return $logger;
+    }
 }
