@@ -23,6 +23,7 @@ class TestController extends ArkWebController
             'app_id' => Helper::config(['wechat', 'app_id']),
             'app_secret' => Helper::config(['wechat', 'app_secret']),
             'token' => Helper::config(['wechat', 'token']),
+            'aes_key' => Helper::config(['wechat', 'aes_key']),
             'log' => [
                 'level' => 'debug',
                 'file'  => __DIR__  . '/../log/log-easywechat'. date('Y-m-d') . '.log',
