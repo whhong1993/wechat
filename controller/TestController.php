@@ -41,6 +41,7 @@ class TestController extends ArkWebController
             $this->app->server->push(function ($message) {
                 return "您好！欢迎使用 EasyWeChat";
             });
+            $this->app->server->serve()->send();
         }
     }
 
