@@ -24,7 +24,7 @@ $payloadHash = hash_hmac($algo, $json, $secret);
 // 判断签名是否匹配
 if ($hash === $payloadHash) {
 
-    $cmd = "cd $target && sudo git pull 2>&1";
+    $cmd = "cd $target && git pull 2>&1";
     $res = shell_exec($cmd);
 
     $res_log = 'Success:' . PHP_EOL;
