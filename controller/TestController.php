@@ -24,7 +24,10 @@ class TestController extends ArkWebController
             'app_id' => Helper::config(['wechat', 'app_id']),
             'app_secret' => Helper::config(['wechat', 'app_secret']),
             'token' => Helper::config(['wechat', 'token']),
-            'response_type' => 'array',
+            'log' => [
+                'level' => 'debug',
+                'file'  => __DIR__  . '/../easywechat'. date('Y-m-d') . '.log',
+            ],
         ];
         $this->app = Factory::officialAccount($wechat_config);
     }
