@@ -100,4 +100,14 @@ class WechatServerController extends ArkWebController
         }
     }
 
+    public function currentMenu()
+    {
+        try {
+            $current_menu = $this->app->menu->current();
+            $this->_sayOK($current_menu);
+        } catch (Exception $exception) {
+            $this->_sayFail($exception->getMessage());
+        }
+    }
+
 }
