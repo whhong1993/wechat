@@ -20,14 +20,13 @@ class TestController extends ArkWebController
     public function __construct()
     {
         parent::__construct();
-        $this->logger = Helper::logger(__CLASS__);
+        $this->logger = Helper::logger('controller');
 
         $wechat_config = [
             'app_id' => Helper::config(['wechat', 'app_id']),
             'app_secret' => Helper::config(['wechat', 'app_secret']),
             'token' => Helper::config(['wechat', 'token']),
             'aes_key' => Helper::config(['wechat', 'aes_key']),
-
 
             'log' => [
                 'level' => 'debug',
@@ -41,7 +40,6 @@ class TestController extends ArkWebController
     public function server()
     {
         try {
-
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $this->app->server->serve()->send();
             } else {
