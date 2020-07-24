@@ -12,7 +12,7 @@ use Exception;
 use sinri\ark\web\implement\ArkWebController;
 use wechat\toolkit\Helper;
 
-class TestController extends ArkWebController
+class WechatServerController extends ArkWebController
 {
     protected $app;
     protected $logger;
