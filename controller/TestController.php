@@ -37,8 +37,10 @@ class TestController extends ArkWebController
             $this->app->server->serve()->send();
         } else {
             $message = $this->app->server->getMessage();
+            $logger->info("接收到消息", $message);
             $this->handleMessage($message);
-            $logger->log(LOG_INFO, "message:" , $message);
+            $response = $this->app->server->serve();
+            $response->send();
         }
     }
 
