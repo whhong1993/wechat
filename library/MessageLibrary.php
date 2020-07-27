@@ -8,6 +8,7 @@
 namespace wechat\library;
 
 use EasyWeChat\Kernel\Messages\Text;
+use Exception;
 use sinri\ark\io\curl\ArkCurl;
 
 class MessageLibrary
@@ -15,7 +16,7 @@ class MessageLibrary
     public function handleTextMessage(Text $message)
     {
         if ($message->getType() !== 'text') {
-            throw new \Exception("Error message type: " . $message->getType());
+            throw new Exception("Error message type: " . $message->getType());
         }
 
         if (!empty($message->get('content')) && explode(' ', $message->get('content')[0] === '翻译')) {
