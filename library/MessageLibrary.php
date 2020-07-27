@@ -18,7 +18,7 @@ class MessageLibrary
             throw new Exception("Error message type: " . $message['MsgType']);
         }
 
-        if (!empty($message['Content']) && explode(' ', $message['Content'][0] === '翻译')) {
+        if (!empty($message['Content']) && explode(' ', $message['Content'])[0] === '翻译') {
             return $this->translateMessage($message['Content']);
         }
         return $message['Content'];
