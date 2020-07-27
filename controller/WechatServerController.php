@@ -112,4 +112,25 @@ class WechatServerController extends ArkWebController
         }
     }
 
+    public function getUserInfo()
+    {
+        try {
+            $open_id = $this->_readRequest('open_id', '');
+            $user_info = $this->app->user->get($open_id);
+            $this->_sayOK($user_info);
+        } catch (Exception $exception) {
+            $this->_sayFail($exception->getMessage());
+        }
+    }
+
+    public function getServerIp()
+    {
+        try {
+            $IP = $this->app->base->getValidIps();
+            $this->_sayOK($IP);
+        } catch (Exception $exception) {
+            $this->_sayFail($exception->getMessage());
+        }
+    }
+
 }
