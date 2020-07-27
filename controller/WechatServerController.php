@@ -103,6 +103,8 @@ class WechatServerController extends ArkWebController
     public function currentMenu()
     {
         try {
+            $access_token = $this->app->access_token;
+            $this->logger->info("access_token: $access_token");
             $current_menu = $this->app->menu->current();
             $this->_sayOK($current_menu);
         } catch (Exception $exception) {
