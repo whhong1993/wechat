@@ -3,7 +3,8 @@
         "sinri/ark": "^3.2",
         "sinri/ark-curl": "^2.0",
         "sinri/ark-pdo": "^2.0",
-        "overtrue/wechat": "~4.0"
+        "overtrue/wechat": "~4.0",
+      "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

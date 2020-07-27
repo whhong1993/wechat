@@ -23,6 +23,9 @@ $router = $web_service->getRouter();
 $router->setDebug(true);
 $router->setLogger($logger);
 
+$router->get("", function () {
+    header("Location: frontend/");
+});
 
 $router->loadAutoRestfulControllerRoot(
     'wechat/',

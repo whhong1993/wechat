@@ -10,17 +10,20 @@ namespace wechat\controller;
 use EasyWeChat\OfficialAccount\Application;
 use Exception;
 use sinri\ark\web\implement\ArkWebController;
+use wechat\library\MessageLibrary;
 use wechat\toolkit\Helper;
 
 class WechatServerController extends ArkWebController
 {
     protected $app;
     protected $logger;
+    protected $lib;
 
     public function __construct()
     {
         parent::__construct();
         $this->logger = Helper::logger('controller');
+        $this->lib = new MessageLibrary();
 
         $wechat_config = [
             'app_id' => Helper::config(['wechat', 'app_id']),
@@ -61,7 +64,7 @@ class WechatServerController extends ArkWebController
                     return '收到事件消息';
                     break;
                 case 'text':
-                    return '收到文字消息';
+                    return $this->lib->handleTextMessage($message);
                     break;
                 case 'image':
                     return '收到图片消息';
