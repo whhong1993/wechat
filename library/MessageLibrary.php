@@ -7,22 +7,21 @@
  */
 namespace wechat\library;
 
-use EasyWeChat\Kernel\Messages\Text;
 use Exception;
 use sinri\ark\io\curl\ArkCurl;
 
 class MessageLibrary
 {
-    public function handleTextMessage(Text $message)
+    public function handleTextMessage($message)
     {
-        if ($message->getType() !== 'text') {
-            throw new Exception("Error message type: " . $message->getType());
+        if ($message['MsgType'] !== 'text') {
+            throw new Exception("Error message type: " . $message['MsgType']);
         }
 
-        if (!empty($message->get('content')) && explode(' ', $message->get('content')[0] === '翻译')) {
-            return $this->translateMessage($message->get('content'));
+        if (!empty($message['Content']) && explode(' ', $message['Content'][0] === '翻译')) {
+            return $this->translateMessage($message['Content']);
         }
-        return $message->get('content');
+        return $message['Content'];
     }
 
     protected function translateMessage($message)
