@@ -1,4 +1,4 @@
 .idea
 /vendor
 config/
-Log/
+log/

@@ -7,7 +7,7 @@
  */
 namespace wechat\controller;
 
-use EasyWeChat\Factory;
+use EasyWeChat\OfficialAccount\Application;
 use Exception;
 use sinri\ark\web\implement\ArkWebController;
 use wechat\toolkit\Helper;
@@ -24,16 +24,16 @@ class WechatServerController extends ArkWebController
 
         $wechat_config = [
             'app_id' => Helper::config(['wechat', 'app_id']),
-            'app_secret' => Helper::config(['wechat', 'app_secret']),
+            'secret' => Helper::config(['wechat', 'app_secret']),
             'token' => Helper::config(['wechat', 'token']),
             'aes_key' => Helper::config(['wechat', 'aes_key']),
 
             'log' => [
                 'level' => 'debug',
-                'file'  => __DIR__  . '/../log/log-easywechat'. date('Y-m-d') . '.log',
+                'file'  => __DIR__  . '/../log/log-easywechat-'. date('Y-m-d') . '.log',
             ],
         ];
-        $this->app = Factory::officialAccount($wechat_config);
+        $this->app = new Application($wechat_config);
     }
 
 
@@ -103,8 +103,6 @@ class WechatServerController extends ArkWebController
     public function currentMenu()
     {
         try {
-            $access_token = $this->app->access_token->getToken();
-            $this->logger->info("access_token: $access_token");
             $current_menu = $this->app->menu->current();
             $this->_sayOK($current_menu);
         } catch (Exception $exception) {
