@@ -7,14 +7,9 @@
  */
 namespace wechat\model;
 
-use sinri\ark\database\model\ArkDatabaseTableModel;
 
-class MessageModel extends ArkDatabaseTableModel
+class MessageModel extends WechatBaseDataModel
 {
-    public function db()
-    {
-        return '';
-    }
 
     public function mappingTableName()
     {

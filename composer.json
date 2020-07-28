@@ -4,7 +4,8 @@
         "sinri/ark-curl": "^2.0",
         "sinri/ark-pdo": "^2.0",
         "overtrue/wechat": "~4.0",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

@@ -24,6 +24,11 @@ class MessageLibrary
         return $message['Content'];
     }
 
+    /**
+     * 金山词霸翻译
+     * @param $message
+     * @return mixed
+     */
     protected function translateMessage($message)
     {
         $api_url = 'http://fy.iciba.com/ajax.php?a=fy&f=auto&t=auto&w=' . $message;
@@ -31,6 +36,8 @@ class MessageLibrary
         $out = json_decode($result, true)['content']['out'];
         return $out;
     }
+
+
 
 
 
