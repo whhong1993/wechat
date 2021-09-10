@@ -143,19 +143,21 @@ class WechatServerController extends ArkWebController
         try {
             $wish = $this->_readRequest('wish', '');
             $ip = $this->_readRequest('ip', $_SERVER['REMOTE_ADDR']);
-
-            $insert_data = [
-                'content' => trim($wish),
-                'ip' => $ip,
-                'create_time' => WishModel::now()
-            ];
-            Helper::db()->executeInTransaction(function () use ($insert_data) {
-                try {
-                    (new WishModel())->insert($insert_data);
-                } catch (ArkPDOExecuteFailedError| ArkPDOExecuteNotAffectedError $e) {
-                    throw new Exception('保存祝福失败:' . $e->getMessage());
-                }
-            });
+            Helper::logger("web")->info("wish". $wish);
+            if (!empty($wish)) {
+                $insert_data = [
+                    'content' => trim($wish),
+                    'ip' => $ip,
+                    'create_time' => WishModel::now()
+                ];
+                Helper::db()->executeInTransaction(function () use ($insert_data) {
+                    try {
+                        (new WishModel())->insert($insert_data);
+                    } catch (ArkPDOExecuteFailedError| ArkPDOExecuteNotAffectedError $e) {
+                        throw new Exception('保存祝福失败:' . $e->getMessage());
+                    }
+                });
+            }
             $this->_sayOK();
         } catch (Exception $exception) {
             throw new ArkWebRequestFailed($exception->getMessage());

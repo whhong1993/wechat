@@ -13,6 +13,7 @@ use wechat\middleware\CoreMiddleware;
 require_once __DIR__ . '/vendor/autoload.php';
 
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
 
 $logger = new ArkLogger(__DIR__ . '/log', 'web');
 $logger->setIgnoreLevel(LogLevel::DEBUG);
