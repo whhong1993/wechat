@@ -142,7 +142,7 @@ class WechatServerController extends ArkWebController
     {
         try {
             $wish = $this->_readRequest('wish', '');
-            $ip = $this->_readRequest('ip', '');
+            $ip = $this->_readRequest('ip', $_SERVER['REMOTE_ADDR']);
 
             $insert_data = [
                 'content' => trim($wish),
