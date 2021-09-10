@@ -145,7 +145,7 @@ class WechatServerController extends ArkWebController
             $ip = $this->_readRequest('ip', '');
 
             $insert_data = [
-                'wish' => trim($wish),
+                'content' => trim($wish),
                 'ip' => $ip,
                 'create_time' => WishModel::now()
             ];
