@@ -2,17 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: whhong
- * Date: 2020-07-24
- * Time: 17:17
+ * Date: 2021/9/9
+ * Time: 17:38
  */
 namespace wechat\model;
 
+
 use wechat\toolkit\WechatBaseDataModel;
 
-class FollowerModel extends WechatBaseDataModel
+class WishModel extends WechatBaseDataModel
 {
+
     public function mappingTableName(): string
     {
-        return 'follower';
+        return 'wish';
     }
 }

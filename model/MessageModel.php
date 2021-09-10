@@ -8,10 +8,12 @@
 namespace wechat\model;
 
 
+use wechat\toolkit\WechatBaseDataModel;
+
 class MessageModel extends WechatBaseDataModel
 {
 
-    public function mappingTableName()
+    public function mappingTableName(): string
     {
         return 'message';
     }

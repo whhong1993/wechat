@@ -9,8 +9,12 @@ namespace wechat\controller;
 
 use EasyWeChat\OfficialAccount\Application;
 use Exception;
+use sinri\ark\database\exception\ArkPDOExecuteFailedError;
+use sinri\ark\database\exception\ArkPDOExecuteNotAffectedError;
+use sinri\ark\web\exception\ArkWebRequestFailed;
 use sinri\ark\web\implement\ArkWebController;
 use wechat\library\MessageLibrary;
+use wechat\model\WishModel;
 use wechat\toolkit\Helper;
 
 class WechatServerController extends ArkWebController
@@ -99,7 +103,7 @@ class WechatServerController extends ArkWebController
             $followers = $this->app->user->list();
             $this->_sayOK($followers);
         } catch (Exception $exception) {
-            $this->_sayFail($exception->getMessage());
+            throw new ArkWebRequestFailed($exception->getMessage());
         }
     }
 
@@ -109,7 +113,7 @@ class WechatServerController extends ArkWebController
             $current_menu = $this->app->menu->current();
             $this->_sayOK($current_menu);
         } catch (Exception $exception) {
-            $this->_sayFail($exception->getMessage());
+            throw new ArkWebRequestFailed($exception->getMessage());
         }
     }
 
@@ -130,7 +134,31 @@ class WechatServerController extends ArkWebController
             $IP = $this->app->base->getValidIps();
             $this->_sayOK($IP);
         } catch (Exception $exception) {
-            $this->_sayFail($exception->getMessage());
+            throw new ArkWebRequestFailed($exception->getMessage());
+        }
+    }
+
+    public function saveWish()
+    {
+        try {
+            $wish = $this->_readRequest('wish', '');
+            $ip = $this->_readRequest('ip', '');
+
+            $insert_data = [
+                'wish' => trim($wish),
+                'ip' => $ip,
+                'create_time' => WishModel::now()
+            ];
+            Helper::db()->executeInTransaction(function () use ($insert_data) {
+                try {
+                    (new WishModel())->insert($insert_data);
+                } catch (ArkPDOExecuteFailedError| ArkPDOExecuteNotAffectedError $e) {
+                    throw new Exception('保存祝福失败:' . $e->getMessage());
+                }
+            });
+            $this->_sayOK();
+        } catch (Exception $exception) {
+            throw new ArkWebRequestFailed($exception->getMessage());
         }
     }
 
