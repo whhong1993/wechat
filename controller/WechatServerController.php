@@ -164,4 +164,14 @@ class WechatServerController extends ArkWebController
         }
     }
 
+    public function getWish()
+    {
+        try {
+            $wish = (new WishModel())->selectRowsForFieldsWithSort('*', []);
+            $this->_sayOK($wish);
+        } catch (Exception $exception) {
+            throw new ArkWebRequestFailed($exception->getMessage());
+        }
+    }
+
 }
